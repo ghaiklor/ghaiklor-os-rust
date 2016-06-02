@@ -16,31 +16,31 @@ ifeq ($(shell uname -s),Darwin)
 	LD = x86_64-elf-ld
 endif
 
-.PHONY: all clean run iso
+.PHONY: all clean run
 
 all: $(KERNEL)
 
 clean:
-	@rm -rf build
+	rm -rf build
 
-run: $(ISO)
-	@qemu-system-x86_64 -cdrom $(ISO)
+run: $(KERNEL)
+	qemu-system-x86_64 -kernel $(KERNEL)
 
 iso: $(ISO)
 
 # Make bootable ISO image from kernel and Grub configuration
 $(ISO): $(KERNEL) $(GRUB_CFG)
-	@mkdir -p build/isofiles/boot/grub
-	@cp $(KERNEL) build/isofiles/boot/kernel.bin
-	@cp $(GRUB_CFG) build/isofiles/boot/grub
-	@grub-mkrescue -o $(ISO) build/isofiles 2> /dev/null
-	@rm -rf build/isofiles
+	mkdir -p build/isofiles/boot/grub
+	cp $(KERNEL) build/isofiles/boot/kernel.bin
+	cp $(GRUB_CFG) build/isofiles/boot/grub
+	grub-mkrescue -o $(ISO) build/isofiles 2> /dev/null
+	rm -rf build/isofiles
 
 # Link all object files and compile kernel.bin
 $(KERNEL): $(ASM_OBJECT_FILES) $(LINKER_SCRIPT)
-	@$(LD) -n -o $(KERNEL) -T $(LINKER_SCRIPT) $(ASM_OBJECT_FILES)
+	$(LD) -n -o $(KERNEL) -T $(LINKER_SCRIPT) $(ASM_OBJECT_FILES)
 
 # Compile our assembly files
 build/arch/$(ARCH)/%.o: src/arch/$(ARCH)/%.asm
-	@mkdir -p $(shell dirname $@)
-	@$(ASM) -f elf64 -o $@ $<
+	mkdir -p $(shell dirname $@)
+	$(ASM) -f elf64 -o $@ $<
