@@ -16,7 +16,7 @@ osx() {
       echo "Now installing git..."
       brew install git
     fi
-    if [ -z "$(which qemu-system-i386)" ]; then
+    if [ -z "$(which qemu-system-x86_64)" ]; then
       echo "Installing qemu..."
       brew install qemu
     fi
@@ -52,7 +52,7 @@ archLinux() {
     sudo pacman -S git
   fi
 
-  if [ -z "$(which qemu-system-i386)" ]; then
+  if [ -z "$(which qemu-system-x86_64)" ]; then
     echo "Installing QEMU..."
     sudo pacman -S qemu
   fi
@@ -64,7 +64,7 @@ ubuntu() {
   sudo apt-get update
   echo "Installing required packages..."
   sudo apt-get install build-essential libc6-dev-i386 nasm curl file git libfuse-dev
-  if [ -z "$(which qemu-system-i386)" ]; then
+  if [ -z "$(which qemu-system-x86_64)" ]; then
     echo "Installing QEMU..."
     sudo apt-get install qemu-system-x86_64 qemu-kvm
   fi
@@ -76,7 +76,7 @@ fedora() {
     echo "Installing git..."
     sudo yum install git-all
   fi
-  if [ -z "$(which qemu-system-i386)" ]; then
+  if [ -z "$(which qemu-system-x86_64)" ]; then
     echo "Installing QEMU..."
     sudo yum install qemu-system-x86_64 qemu-kvm
   fi
@@ -90,7 +90,7 @@ suse() {
     echo "Installing git..."
     zypper install git
   fi
-  if [ -z "$(which qemu-system-i386)" ]; then
+  if [ -z "$(which qemu-system-x86_64)" ]; then
     echo "Installing QEMU..."
     sudo zypper install qemu-x86_64 qemu-kvm
   fi
