@@ -6,7 +6,7 @@ ISO := build/os-$(ARCH).iso
 LINKER_SCRIPT := src/arch/$(ARCH)/linker.ld
 GRUB_CFG := src/arch/$(ARCH)/grub.cfg
 
-ASM_SOURCE_FILES := $(wildcard src/arch/$(ARCH)/*.asm)
+ASM_SOURCE_FILES := $(shell find src/arch/$(ARCH) -name '*.asm')
 ASM_OBJECT_FILES := $(patsubst src/arch/$(ARCH)/%.asm, build/arch/$(ARCH)/%.o, $(ASM_SOURCE_FILES))
 
 ASM = nasm
