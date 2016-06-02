@@ -3,11 +3,13 @@ ENTRY(start)
 SECTIONS {
   . = 1M;
 
-  .boot: {
+  .boot :
+  {
     *(.multiboot)
   }
 
-  .text: {
+  .text :
+  {
     *(.text)
   }
 }
