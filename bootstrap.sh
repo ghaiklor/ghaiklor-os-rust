@@ -39,82 +39,27 @@ osx() {
 
 archLinux() {
   echo "Detected Arch Linux"
-  echo "Updating system..."
-  sudo pacman -Syu
-
-  if [ -z "$(which nasm)" ]; then
-    echo "Installing nasm..."
-    sudo pacman -S nasm
-  fi
-
-  if [ -z "$(which git)" ]; then
-    echo "Installing git..."
-    sudo pacman -S git
-  fi
-
-  if [ -z "$(which qemu-system-x86_64)" ]; then
-    echo "Installing QEMU..."
-    sudo pacman -S qemu
-  fi
+  echo "You can help me and write bootstrap script for your OS"
 }
 
 ubuntu() {
   echo "Detected Ubuntu/Debian"
-  echo "Updating system..."
-  sudo apt-get update
-  echo "Installing required packages..."
-  sudo apt-get install build-essential libc6-dev-i386 nasm curl file git libfuse-dev
-  if [ -z "$(which qemu-system-x86_64)" ]; then
-    echo "Installing QEMU..."
-    sudo apt-get install qemu-system-x86_64 qemu-kvm
-  fi
+  echo "You can help me and write bootstrap script for your OS"
 }
 
 fedora() {
   echo "Detected Fedora"
-  if [ -z "$(which git)" ]; then
-    echo "Installing git..."
-    sudo yum install git-all
-  fi
-  if [ -z "$(which qemu-system-x86_64)" ]; then
-    echo "Installing QEMU..."
-    sudo yum install qemu-system-x86_64 qemu-kvm
-  fi
-  echo "Installing necessary build tools..."
-  sudo dnf install nasm make
+  echo "You can help me and write bootstrap script for your OS"
 }
 
 suse() {
   echo "Detected a suse"
-  if [ -z "$(which git)" ]; then
-    echo "Installing git..."
-    zypper install git
-  fi
-  if [ -z "$(which qemu-system-x86_64)" ]; then
-    echo "Installing QEMU..."
-    sudo zypper install qemu-x86_64 qemu-kvm
-  fi
-  echo "Installing necessary build tools..."
-  sudo zypper install nasm make libfuse
+  echo "You can help me and write bootstrap script for your OS"
 }
 
 gentoo() {
   echo "Detected Gentoo Linux"
-  if [ -z "$(which nasm)" ]; then
-    echo "Installing nasm..."
-    sudo emerge dev-lang/nasm
-  fi
-  if [ -z "$(which git)" ]; then
-    echo "Installing git..."
-    sudo emerge dev-vcs/git
-  fi
-  echo "Installing fuse..."
-  sudo emerge sys-fs/fuse
-  if [ -z "$(which qemu-system-x86_64)" ]; then
-    echo "Please install QEMU and re-run this script"
-    echo "Step1. Add QEMU_SOFTMMU_TARGETS=\"x86_64\" to /etc/portage/make.conf"
-    echo "Step2. Execute \"sudo emerge app-emulation/qemu\""
-  fi
+  echo "You can help me and write bootstrap script for your OS"
 }
 
 endMessage() {
@@ -123,7 +68,6 @@ endMessage() {
   echo "| Well it looks like you are ready to go! |"
   echo "|-----------------------------------------|"
   echo "| make                                    |"
-  echo "| make run                                |"
   echo "|-----------------------------------------|"
   echo "|-------------- Good luck! ---------------|"
   echo "|-----------------------------------------|"
