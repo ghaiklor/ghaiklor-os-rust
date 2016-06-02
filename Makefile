@@ -16,15 +16,13 @@ ifeq ($(shell uname -s),Darwin)
 	LD = x86_64-elf-ld
 endif
 
-.PHONY: all clean run
-
-all: $(KERNEL)
+all: iso
 
 clean:
 	rm -rf build
 
-run: $(KERNEL)
-	qemu-system-x86_64 -kernel $(KERNEL)
+run: $(ISO)
+	qemu-system-x86_64 -cdrom $(ISO)
 
 iso: $(ISO)
 
