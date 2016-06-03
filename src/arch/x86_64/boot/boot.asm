@@ -14,7 +14,6 @@ extern check_multiboot
 extern enable_paging
 extern setup_page_tables
 
-;; by default, text section is the default section for executable code
 section .text
 bits 32
 
@@ -27,9 +26,11 @@ start:
   call check_cpuid
   call check_long_mode
 
+  ;; In case if Long Mode is supported we can set up paging
   call setup_page_tables
   call enable_paging
 
+  ;; Install GDT (Global Descriptor Table)
   lgdt [gdt64.pointer]
 
   mov ax, gdt64.data
@@ -37,6 +38,7 @@ start:
   mov ds, ax
   mov es, ax
 
+  ;; Far jump to begin_long_mode routing for actually switching to x64 mode
   jmp gdt64.code:begin_long_mode
 
 ;; Reserve memory for stack
@@ -52,6 +54,7 @@ stack_bottom:
   resb 64
 stack_top:
 
+;; Structure for Global Descriptor Table
 section .rodata
 gdt64:
   dq 0
