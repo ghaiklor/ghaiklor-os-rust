@@ -31,7 +31,7 @@ $(ISO): $(KERNEL) $(GRUB_CFG)
 	mkdir -p build/isofiles/boot/grub
 	cp $(KERNEL) build/isofiles/boot/kernel.bin
 	cp $(GRUB_CFG) build/isofiles/boot/grub
-	grub-mkrescue -o $(ISO) build/isofiles 2> /dev/null
+	grub-mkrescue -o $(ISO) build/isofiles
 	rm -rf build/isofiles
 
 # Link all object files and compile kernel.bin

@@ -34,6 +34,7 @@ osx() {
   echo "Running setup script..."
   brew install gmp mpfr libmpc autoconf automake
   brew install nasm
+  brew install xorriso
   brew tap djphoenix/gcc_cross_compilers
   brew install djphoenix/gcc_cross_compilers/x86_64-elf-binutils djphoenix/gcc_cross_compilers/x86_64-elf-gcc
 
@@ -113,6 +114,7 @@ endMessage() {
   echo "| Well it looks like you are ready to go! |"
   echo "|-----------------------------------------|"
   echo "| make                                    |"
+  echo "| make run                                |"
   echo "|-----------------------------------------|"
   echo "|-------------- Good luck! ---------------|"
   echo "|-----------------------------------------|"
