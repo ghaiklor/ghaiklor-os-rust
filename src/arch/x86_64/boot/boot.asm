@@ -3,6 +3,7 @@
 
 ;; start will be our entry point to the kernel
 global start
+extern begin_long_mode
 
 ;; by default, text section is the default section for executable code
 section .text
@@ -20,8 +21,14 @@ start:
   call setup_page_tables
   call enable_paging
 
-  mov dword [0xB8000], 0x2F4B2F4F
-  hlt
+  lgdt [gdt64.pointer]
+
+  mov ax, gdt64.data
+  mov ss, ax
+  mov ds, ax
+  mov es, ax
+
+  jmp gdt64.code:begin_long_mode
 
 ;; Check if Multiboot is loaded properly
 ;; http://nongnu.askapache.com/grub/phcoder/multiboot.pdf
@@ -161,3 +168,14 @@ p2_table:
 stack_bottom:
   resb 64
 stack_top:
+
+section .rodata
+gdt64:
+  dq 0
+.code: equ $ - gdt64
+  dq (1 << 44) | (1 << 47) | (1 << 41) | (1 << 43) | (1 << 53)
+.data: equ $ - gdt64
+  dq (1 << 44) | (1 << 47) | (1 << 41)
+.pointer:
+  dw $ - gdt64 - 1
+  dq gdt64
