@@ -5,7 +5,7 @@ SECTIONS {
 
   .boot :
   {
-    *(.multiboot)
+    KEEP(*(.multiboot))
   }
 
   .text :

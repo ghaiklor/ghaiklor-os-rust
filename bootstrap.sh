@@ -76,6 +76,11 @@ osx() {
     make
     make install
   fi
+
+  # Install rust
+  curl https://sh.rustup.rs -sSf | sh
+  export PATH="$HOME/.cargo/bin"
+  rustup override add nightly
 }
 
 archLinux() {

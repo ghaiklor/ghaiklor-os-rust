@@ -1,5 +1,7 @@
 # Define variables
 ARCH ?= x86_64
+TARGET ?= $(ARCH)-unknown-linux-gnu
+RUST_OS := target/$(TARGET)/debug/libghaiklor_os.a
 KERNEL := build/kernel-$(ARCH).bin
 ISO := build/os-$(ARCH).iso
 
@@ -26,6 +28,9 @@ run: $(ISO)
 
 iso: $(ISO)
 
+cargo:
+	cargo build --target $(TARGET)
+
 # Make bootable ISO image from kernel and Grub configuration
 $(ISO): $(KERNEL) $(GRUB_CFG)
 	mkdir -p build/isofiles/boot/grub
@@ -35,8 +40,8 @@ $(ISO): $(KERNEL) $(GRUB_CFG)
 	rm -rf build/isofiles
 
 # Link all object files and compile kernel.bin
-$(KERNEL): $(ASM_OBJECT_FILES) $(LINKER_SCRIPT)
-	$(LD) -n -o $(KERNEL) -T $(LINKER_SCRIPT) $(ASM_OBJECT_FILES)
+$(KERNEL): cargo $(RUST_OS) $(ASM_OBJECT_FILES) $(LINKER_SCRIPT)
+	$(LD) -n --gc-sections -o $(KERNEL) -T $(LINKER_SCRIPT) $(ASM_OBJECT_FILES) $(RUST_OS)
 
 # Compile our assembly files
 build/arch/$(ARCH)/%.o: src/arch/$(ARCH)/%.asm
