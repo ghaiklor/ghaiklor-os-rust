@@ -1,7 +1,7 @@
 # Define variables
 ARCH ?= x86_64
-TARGET ?= $(ARCH)-unknown-linux-gnu
-RUST_OS := target/$(TARGET)/debug/libghaiklor_os.a
+TARGET ?= $(ARCH)-apple-darwin
+RUST_OS := target/$(TARGET)/debug/libghaiklor_os_rust.a
 KERNEL := build/kernel-$(ARCH).bin
 ISO := build/os-$(ARCH).iso
 
