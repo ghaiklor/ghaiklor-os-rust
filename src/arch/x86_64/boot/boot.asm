@@ -13,6 +13,7 @@ extern check_long_mode
 extern check_multiboot
 extern enable_paging
 extern setup_page_tables
+extern setup_sse
 
 section .text
 bits 32
@@ -29,6 +30,9 @@ start:
   ;; In case if Long Mode is supported we can set up paging
   call setup_page_tables
   call enable_paging
+
+  ;; Enable SSE
+  call setup_sse
 
   ;; Install GDT (Global Descriptor Table)
   lgdt [gdt64.pointer]
