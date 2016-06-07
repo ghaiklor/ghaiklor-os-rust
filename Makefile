@@ -21,6 +21,7 @@ endif
 all: iso
 
 clean:
+	cargo clean
 	rm -rf build
 
 run: $(ISO)
