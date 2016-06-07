@@ -6,8 +6,12 @@
 *.elf
 *.sym
 *.lock
+*.so
+*.rlib
+*.dll
+*.exe
 *~
 .DS_STORE
 
-build
-target
+/build
+/target
