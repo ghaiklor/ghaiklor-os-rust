@@ -59,7 +59,7 @@ osx() {
     fi
 
     # Install rust
-    export PATH="$HOME/.cargo/bin"
+    export PATH="$HOME/.cargo/bin:$PATH"
 
     curl https://sh.rustup.rs -sSf | sh
     rustup override add nightly
