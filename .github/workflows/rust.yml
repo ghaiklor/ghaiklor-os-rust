@@ -11,6 +11,8 @@ jobs:
       run: sudo apt-get install qemu
     - name: Install xbuild
       run: cargo install cargo-xbuild --verbose
+    - name: Install bootimage
+      run: cargo install bootimage --verbose
     - name: Install rust-src
       run: rustup component add rust-src
     - name: Build
