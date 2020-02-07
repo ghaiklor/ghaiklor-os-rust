@@ -15,6 +15,8 @@ jobs:
       run: cargo install bootimage --verbose
     - name: Install rust-src
       run: rustup component add rust-src
+    - name: Install llvm-tools-preview
+      run: rustup component add llvm-tools-preview
     - name: Build
       run: cargo xbuild --verbose
     - name: Run tests
