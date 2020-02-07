@@ -5,6 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Install QEMU
+      run: apt-get install qemu
     - name: Install xbuild
       run: cargo install cargo-xbuild --verbose
     - name: Install rust-src
