@@ -7,8 +7,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install xbuild
       run: cargo install cargo-xbuild --verbose
-    - name: Install rust components
+    - name: Install rust-src
       run: rustup component add rust-src
+    - name: Install clippy
+      run: rustup component add clippy
     - name: Lint
       run: cargo xclippy --verbose
     - name: Build
