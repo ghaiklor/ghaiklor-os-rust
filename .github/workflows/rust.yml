@@ -1,14 +1,12 @@
 name: Rust
-
 on: [push]
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
+    - name: Install xbuild
+      run: cargo install cargo-xbuild --verbose
     - name: Linting
       run: cargo xclippy --verbose
     - name: Build
