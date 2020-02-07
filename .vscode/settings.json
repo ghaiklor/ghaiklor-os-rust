@@ -1,10 +1,12 @@
 {
     "cSpell.words": [
         "Obrezkov",
+        "Qemu",
         "bootimage",
         "executables",
         "ghaiklor",
         "llvm",
-        "redzone"
+        "redzone",
+        "uart"
     ]
 }
