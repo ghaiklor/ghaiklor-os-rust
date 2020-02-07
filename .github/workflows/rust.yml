@@ -9,6 +9,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Linting
+      run: cargo xclippy --verbose
     - name: Build
       run: cargo xbuild --verbose
     - name: Run tests
