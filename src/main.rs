@@ -23,6 +23,7 @@ fn panic(info: &PanicInfo) -> ! {
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
     println!("Hello, World from macro");
+    ghaiklor_os_rust::init();
 
     #[cfg(test)]
     test_main();

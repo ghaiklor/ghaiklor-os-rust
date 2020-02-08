@@ -8,7 +8,7 @@ use core::panic::PanicInfo;
 use ghaiklor_os_rust::{exit_qemu, serial_print, serial_println, QemuExitCode};
 
 #[panic_handler]
-fn panic(info: &PanicInfo) -> ! {
+fn panic(_info: &PanicInfo) -> ! {
     serial_println!("[ok]");
     exit_qemu(QemuExitCode::Success);
     loop {}
