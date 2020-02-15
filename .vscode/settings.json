@@ -2,11 +2,19 @@
     "cSpell.words": [
         "Obrezkov",
         "Qemu",
+        "Scancode",
+        "Virt",
         "bootimage",
+        "concat",
         "executables",
         "ghaiklor",
+        "keyevent",
         "llvm",
         "redzone",
-        "uart"
+        "repr",
+        "rustup",
+        "uart",
+        "xbuild",
+        "xtest"
     ]
 }
