@@ -4,9 +4,14 @@
 #![test_runner(ghaiklor_os_rust::test_runner)]
 #![reexport_test_harness_main = "test_main"]
 
+extern crate alloc;
+
+use alloc::boxed::Box;
+use alloc::vec::Vec;
 use bootloader::entry_point;
 use bootloader::BootInfo;
 use core::panic::PanicInfo;
+use ghaiklor_os_rust::allocator;
 use ghaiklor_os_rust::memory;
 use ghaiklor_os_rust::memory::BootInfoFrameAllocator;
 use ghaiklor_os_rust::println;
@@ -32,8 +37,17 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
     ghaiklor_os_rust::init();
 
     let phys_mem_offset = VirtAddr::new(boot_info.physical_memory_offset);
-    let _mapper = unsafe { memory::init(phys_mem_offset) };
-    let _frame_allocator = unsafe { BootInfoFrameAllocator::init(&boot_info.memory_map) };
+    let mut mapper = unsafe { memory::init(phys_mem_offset) };
+    let mut frame_allocator = unsafe { BootInfoFrameAllocator::init(&boot_info.memory_map) };
+
+    allocator::init_heap(&mut mapper, &mut frame_allocator).expect("heap initialization failed");
+    let heap_value = Box::new(41);
+    println!("heap value at {:p}", heap_value);
+    let mut vector = Vec::new();
+    for i in 0..500 {
+        vector.push(i);
+    }
+    println!("vector at {:p}", vector.as_slice());
 
     #[cfg(test)]
     test_main();
