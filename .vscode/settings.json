@@ -5,6 +5,7 @@
         "Scancode",
         "Virt",
         "bootimage",
+        "bootloader",
         "concat",
         "executables",
         "ghaiklor",
