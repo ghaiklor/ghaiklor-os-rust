@@ -6,9 +6,11 @@ use x86_64::structures::paging::{FrameAllocator, Mapper, Page, PageTableFlags, S
 use x86_64::VirtAddr;
 
 pub mod bump;
+pub mod linked_list;
 
 #[global_allocator]
-static ALLOCATOR: Locked<bump::BumpAllocator> = Locked::new(bump::BumpAllocator::new());
+static ALLOCATOR: Locked<linked_list::LinkedListAllocator> =
+    Locked::new(linked_list::LinkedListAllocator::new());
 
 pub const HEAP_START: usize = 0x_4444_4444_0000;
 pub const HEAP_SIZE: usize = 100 * 1024;
