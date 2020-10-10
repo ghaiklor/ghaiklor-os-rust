@@ -47,7 +47,7 @@ unsafe impl GlobalAlloc for Dummy {
 pub fn init_heap(
     mapper: &mut impl Mapper<Size4KiB>,
     frame_allocator: &mut impl FrameAllocator<Size4KiB>,
-) -> Result<(), MapToError> {
+) -> Result<(), MapToError<Size4KiB>> {
     let page_range = {
         let heap_start = VirtAddr::new(HEAP_START as u64);
         let heap_end = heap_start + HEAP_SIZE - 1u64;
@@ -63,7 +63,10 @@ pub fn init_heap(
             .ok_or(MapToError::FrameAllocationFailed)?;
 
         let flags = PageTableFlags::PRESENT | PageTableFlags::WRITABLE;
-        mapper.map_to(page, frame, flags, frame_allocator)?.flush();
+
+        unsafe {
+            mapper.map_to(page, frame, flags, frame_allocator)?.flush();
+        }
     }
 
     unsafe { ALLOCATOR.lock().init(HEAP_START, HEAP_SIZE) };
