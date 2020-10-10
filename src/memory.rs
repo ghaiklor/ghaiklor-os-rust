@@ -29,7 +29,7 @@ impl BootInfoFrameAllocator {
         let frame_addresses = addr_ranges.flat_map(|r| r.step_by(4096));
         let frames = frame_addresses.map(|addr| PhysFrame::containing_address(PhysAddr::new(addr)));
 
-        frames.map(|f| unsafe { PhysFrame::new(f) })
+        frames
     }
 }
 
