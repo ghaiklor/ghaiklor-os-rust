@@ -9,8 +9,6 @@ jobs:
       run: sudo apt-get update
     - name: Install QEMU
       run: sudo apt-get install qemu
-    - name: Install xbuild
-      run: cargo install cargo-xbuild --verbose
     - name: Install bootimage
       run: cargo install bootimage --verbose
     - name: Install rust-src
@@ -18,6 +16,6 @@ jobs:
     - name: Install llvm-tools-preview
       run: rustup component add llvm-tools-preview
     - name: Build
-      run: cargo xbuild --verbose
+      run: cargo build --verbose
     - name: Run tests
-      run: cargo xtest --verbose
+      run: cargo test --verbose
