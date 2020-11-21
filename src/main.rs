@@ -15,7 +15,9 @@ use ghaiklor_os_rust::allocator;
 use ghaiklor_os_rust::memory;
 use ghaiklor_os_rust::memory::BootInfoFrameAllocator;
 use ghaiklor_os_rust::println;
-use ghaiklor_os_rust::task::{simple_executor::SimpleExecutor, Task};
+use ghaiklor_os_rust::task::executor::Executor;
+use ghaiklor_os_rust::task::keyboard;
+use ghaiklor_os_rust::task::Task;
 use x86_64::VirtAddr;
 
 entry_point!(kernel_main);
@@ -50,15 +52,10 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
     }
     println!("vector at {:p}", vector.as_slice());
 
-    let mut executor = SimpleExecutor::new();
+    let mut executor = Executor::new();
     executor.spawn(Task::new(example_task()));
+    executor.spawn(Task::new(keyboard::print_keypresses()));
     executor.run();
-
-    #[cfg(test)]
-    test_main();
-
-    println!("It did not crash :)");
-    ghaiklor_os_rust::hlt_loop();
 }
 
 async fn async_number() -> u32 {
